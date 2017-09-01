@@ -100,8 +100,23 @@ def bike_hist_cond(df,col,by):
 days=day_of_week()
 df1=set_day_of_week(df,days)
 df2=set_days(df1)
-bike_scatter(df2,num_cols)
-bike_box(df2,box_cols)
-bike_series(df2,plt_times)
-bike_hist(df2,hist_cols)
-bike_hist_cond(df2,hist_cols,plt_times)
+train_data=df2.head(12165)
+test_data=df2.tail(5214)
+test_data1=df2.tail(5214)
+train_labels=train_data['cnt']
+del(train_data['cnt'],train_data['dayOfWeek'])
+train_features=train_data
+from sklearn import datasets, linear_model
+reg=linear_model.LinearRegression()
+reg.fit(train_features,train_labels)
+del(test_data1['cnt'],test_data1['dayOfWeek'])
+import numpy as np
+prediction=[]
+for i in np.arange(len(test_data)):
+    pred_val=test_data1.iloc[[i]]
+    l=reg.predict(pred_val)
+    l=' '.join(map(str,l))
+    prediction.append(l)
+#s= ''.join(map(str, prediction))
+#float(s)
+test_data['prediction']=prediction
