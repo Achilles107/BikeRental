@@ -17,7 +17,7 @@ def set_days(df):
     return df
     
 import pandas as pd
-data=pd.read_csv("C:\Users\Achilles\Pictures\ksy\dbike.csv")
+data=pd.read_csv("dbike.csv")
 df=pd.DataFrame(data)
 #df['atemp']
 del(df['atemp'],df['casual'],df['registered'],df['instant'],df['dteday'])
